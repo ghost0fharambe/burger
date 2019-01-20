@@ -25,6 +25,13 @@ var orm = {
             if (err) throw err;
             cb(data);
         });
+    },
+    delete: function(id, cb) {
+        var dbQuery = 'DELETE FROM burgers WHERE id = ?';
+        connection.query(dbQuery, [id], function(err, data){
+            if (err) throw err;
+            cb(data);
+        })
     }
 };
 

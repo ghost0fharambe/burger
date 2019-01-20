@@ -35,5 +35,24 @@ $(document).ready(function () {
             }
         );
     });
+
+    $(".delete-btn").on('click', function () {
+        event.preventDefault();
+
+        var id = $(this).data('value');
+        var burgerObject = {
+            id: id
+        };
+        $.ajax("/api/delete/" + id, {
+            type: "DELETE",
+            data: burgerObject
+        }).then(
+            function () {
+                console.log('success');
+                // Reload the page to get the updated list
+                location.reload();
+            }
+        );
+    });
     //END CODE
 });
