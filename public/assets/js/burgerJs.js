@@ -5,10 +5,35 @@ $(document).ready(function () {
         var burgerObject = {
             burger_name: $("#burgerName").val().trim()
         };
-        $.post('/api/burgers', burgerObject, function (err, data) {
-            if (err) throw err;
-            location.reload();
-        });
+        $.ajax("/api/burgers", {
+            type: "POST",
+            data: burgerObject
+        }).then(
+            function () {
+                console.log("created new burger");
+                // Reload the page to get the updated list
+                location.reload();
+            }
+        );
     });
 
+    $(".eat-btn").on('click', function () {
+        event.preventDefault();
+        var id = $(this).data('value');
+        var burgerObject = {
+            id: id
+        };
+
+        $.ajax("/api/burgers/" + id, {
+            type: "PUT",
+            data: burgerObject
+        }).then(
+            function () {
+                console.log('success');
+                // Reload the page to get the updated list
+                location.reload();
+            }
+        );
+    });
+    //END CODE
 });

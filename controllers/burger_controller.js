@@ -16,13 +16,20 @@ router.get('/', function (req, res) {
 router.post("/api/burgers", function (req, res) {
     console.log(req.body);
     burger.insertOne(req.body.burger_name, function (data) {
-        res.json({
-            id: data.insertId
-        });
+        return res.status(200).end();
     });
 });
 
-
+router.put('/api/burgers/:id', function (req, res) {
+    //var condition = 'id = ' + req.params.id;
+    burger.updateOne(req.body.id, function (data) {
+        if (data.changedRows === 0) {
+            return res.status(404).end();
+        } else {
+            return res.status(200).end();
+        }
+    });
+});
 
 
 module.exports = router;
